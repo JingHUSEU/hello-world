@@ -1,0 +1,83 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+    <style type="text/css">
+    	.div{
+    		height: 25px;
+    	}
+    	.box {
+    		padding: 10px;
+    		background: red;
+    		float: left;
+    		margin: 0 3px;
+    	}
+    </style>
+  </head>
+<body>
+	<input type="text" id="input_text" name="number">
+	<input type="button" name="in_left" value="左侧入" onclick="input_left()">
+	<input type="button" name="in_right" value="右侧入" onclick="input_right()">
+	<input type="button" name="out_left" value="左侧出" onclick="output_left()">
+	<input type="button" name="out_right" value="右侧出" onclick="output_right()">
+	<div id="show_div">
+		
+	</div>
+	<script type="text/javascript">
+		var input_text = document.getElementById("input_text");
+		var show_div = document.getElementById("show_div");
+		var data = [];//用数组保存队列内容
+		function judege(){
+			if(data.length >= 60){
+				alert("队列已满！");
+				return;
+			}
+			if(input_text.value.trim() != '' && input_text.value.trim()<=100 && input_text.value.trim()>=10){
+				return input_text.value;
+			}else{
+				alert("请输入符合要求的数字！");
+			}
+		}
+		function show_fun(){
+			var show = '';
+			for (var i = 0; i < data.length; i++) {
+				//获取div高度
+				//var height = data[i];
+				show += '<div class="box" style="height:'+data[i]+'px;position:relative;top:'+(100-data[i])+'px"></div>'
+			}
+			show_div.innerHTML = show;
+		}
+		function input_left(){
+			if(judege()){
+				data.unshift(judege());
+				show_fun();
+			}
+
+		}
+		function input_right(){
+			if(judege()){
+				data.push(judege());
+				show_fun();
+			}
+
+		}
+		function output_left(){
+			if(data.length != 0){
+				data.shift();
+				show_fun();
+			}else{
+				alert("队列已空！");	
+			}
+		}
+		function output_right(){
+			if(data.length != 0){
+				data.pop();
+				show_fun();
+			}else{
+				alert("队列已空！");	
+			}
+		}
+	</script>
+</body>
+</html>
